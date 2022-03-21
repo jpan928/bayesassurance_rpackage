@@ -7,7 +7,7 @@ clinical trial study design problems.
 
 # Setup Instructions
 
-To install the `bayesassurance` package in R, you can compile the package from
+To install the `bayesassurance` package in R, there are several ways to compile the package from
 source as the package is not yet available on CRAN. 
 
 ## Directly From Github (Mac/Windows)
