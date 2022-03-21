@@ -1,0 +1,22 @@
+Package: bayesassurance
+Date: 2022-03-20
+Type: Package
+Title: Bayesian Assurance Computation
+Depends: R (>= 3.5.0)
+Description: Functions that compute the Bayesian assurance under various 
+    settings characterized by different assumptions and objectives, including 
+    precision-based conditions, credible intervals, and goal functions. 
+    All simulation-based functions included in this package rely on a two-stage 
+    Bayesian method that assigns two distinct priors to evaluate the unconditional 
+    probability of observing a positive outcome,  which addresses subtle imitations 
+    that take place when using the standard single-prior approach. 
+Roxygen: list(markdown = TRUE)
+Version: 0.1.0
+Author: Jane Pan
+Maintainer: Jane Pan <jpan1@ucla.edu>
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+RdMacros: mathjaxr, Rdpack
+Imports: mathjaxr, Rdpack, ggplot2, plotly, plot3D, pbapply, dplyr
+RoxygenNote: 7.1.2
