@@ -1,37 +1,47 @@
 # bayesassurance R package
 
 This R package offers a constructive set of simulation-based functions
-and additional features used for determining sample size and assurance
-in numerous settings.
-These 
-suitable for addressing a wide range of clinical trial study design
-problems. 
+used for determining sample size and assurance in various settings. 
+We hope these functions will be useful for addressing a wide range of 
+clinical trial study design problems. 
 
 # Setup Instructions
 
 To install the `bayesassurance` package in R, you can compile the package from
-source. 
+source as the package is not yet available on CRAN. 
 
-  1. Make sure you have git properly installed.
-  2. Run `git clone https://github.com/jpan928/bayesassurance_rpackage.git` from your
-  command line and navigate to the cloned project directory via `cd bayesassurance_rpackage`.
-  3. Install the package into R using `R CMD INSTALL bayesassurance`. You should now
-  be able to run `library(bayesassurance)` and start using the package normally.
-  
-Alternatively, you can directly build the function in R if you have the
-necessary components saved as a compressed file, bayesassurance_0.1.0.tar.gz. 
+## Directly From Github (Mac/Windows)
+  1. Open R Studio.
+  2. Make sure `devtools` is installed and loaded. If not, run `install.packages("devtools")` and 
+  load the package using `library(devtools)` once installation is complete. 
+  3. Install the bayesassurance package directly through Github by running
+  `devtools::install_github("jpan928/bayesassurance_rpackage")`. 
+  You may be asked to install `Rtools`. Please follow the instructions
+  on https://cran.rstudio.com/bin/windows/Rtools/. 
+  4. Load package using `library(bayesassurance)` and start using package normally. 
 
-  1. Extract the files and save to desired location.
-  2. Open R and navigate to the corresponding directory where the files are saved.
-  3. Install and load in the package `devtools` using `install.packages("devtools")` and 
-     `library(devtools)`. 
-  4. Load in components of the package using `devtools::load_all()`. 
-  5. Install package using `devtools::install()`, which installs the package into
-     your R system library. 
-  6. Load package using `library("bayesassurance")` and start using package normally. 
+Alternatively, you can build the package using the tar.gz file.
+
+## Mac
+  1. Download the bayesassurance_0.1.0.tar.gz file. 
+  2. In the R prompt, navigate to where this file is stored using `setwd()`. 
+  3. Run `install.packages(bayesassurance_0.1.0.tar.gz, repos = NULL, type = "source")`. 
+  4. Load package using `library(bayesassurance)` and start using package normally. 
+
+ 
+## Windows
+  1. Download the bayesassurance_0.1.0.tar.gz file.
+  2. Open command prompt. 
+  3. Identify path of the folder to where R is installed and run `PATH <your.file.path.here>`. 
+  An example of this file path is "C:\Program Files\R\R-4.1.3\bin\x64". 
+  4. On the same command prompt, navigate to the directory containing the bayesassurance_rpackage folder.
+  (Do not go into this folder.)
+  5. Enter `R CMD INSTALL bayesassurance_rpackage.tar.gz` in the command prompt to install the 
+  bayesassurance package. 
+  6. Open R Studio and run `library(bayesassurance)` and start using package normally. 
   
   
 # Vignettes
 
-Vignettes are currently undergoing revisions in preparation of being launched to CRAN. 
+Vignettes are currently undergoing revisions and will be available soon. 
 
