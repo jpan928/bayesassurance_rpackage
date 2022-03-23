@@ -27,7 +27,7 @@ Alternatively, you can build the package using the tar.gz file.
 
 ### Mac
 
-$\textbf{Within R Studio}$
+#### Within R Studio
 
   1. Download the `bayesassurance_0.1.0.tar.gz` file. 
   2. Open R Studio.
@@ -35,7 +35,7 @@ $\textbf{Within R Studio}$
   4. Run `install.packages("bayesassurance_0.1.0.tar.gz", repos = NULL, type = "source")`. 
   5. Load package using `library(bayesassurance)` and start using package normally. 
 
-\textbf{Within Terminal}
+#### Within Terminal
 
   1. Download the `bayesassurance_0.1.0.tar.gz` file.
   2. Open Terminal.
@@ -48,7 +48,7 @@ $\textbf{Within R Studio}$
   
 ### Windows
 
-\textbf{Within R Studio}
+#### Within R Studio
 
   1. Download the `bayesassurance_0.1.0.tar.gz` file. 
   2. Open R Studio.
@@ -58,7 +58,7 @@ $\textbf{Within R Studio}$
   5. Load package using `library(bayesassurance)` and start using package normally. 
   
   
-\textbf{Within Command Prompt}  
+#### Within Command Prompt
 
   1. Download the `bayesassurance_0.1.0.tar.gz` file.
   2. Open command prompt.
