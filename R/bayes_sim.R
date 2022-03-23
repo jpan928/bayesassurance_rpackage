@@ -122,6 +122,7 @@ bayes_sim <- function(n, p = NULL, u, C, Xn = NULL, Vn = NULL, Vbeta_d, Vbeta_a_
   # analysis stage objective
   MC_sample <- function(n = n){
 
+    # initial checks
     if(is.null(Xn) == FALSE & longitudinal == FALSE){
       p <- ncol(Xn)
       Xn_t <- t(Xn)
@@ -198,8 +199,9 @@ bayes_sim <- function(n, p = NULL, u, C, Xn = NULL, Vn = NULL, Vbeta_d, Vbeta_a_
     return(assurance)
   }
 
+  # evaluates the analysis objective for all n by applying
+  # MC_sample()
   assurance <- pbapply::pbsapply(n, function(i) MC_sample(n=i))
-
 
   # Assurance table
     assur_tab <- as.data.frame(cbind(n, assurance))
