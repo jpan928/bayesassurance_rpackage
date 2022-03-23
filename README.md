@@ -45,7 +45,12 @@ Alternatively, you can build the package using the tar.gz file.
 # Replication Materials
 
 For JSS reviewers, R scripts containing the necessary code to reproduce figures and examples
-in the manuscript can be found under `Replication_Material`. 
+in the manuscript can be found under `Replication_Material`. Please refer to the main 
+script file, `replication_script.R`, and work through the examples in chronological 
+order. The script includes all worked out examples and figures in the order in which they 
+appear in the manuscript. It will also point you to the supplementary R Markdown files 
+(`fig7_replication.Rmd`, `fig9_replication.Rmd`, and `fig10_replication.Rmd`)
+where appropriate. 
   
 # Vignettes
 
