@@ -245,6 +245,7 @@ Vbeta_a_inv <- matrix(rep(0, 16), nrow = 4, ncol = 4)
 Vbeta_d <- (1 / sigsq) * matrix(c(4, 0, 3, 0, 0, 10^7, 0, 0,
                                      3, 0, 4, 0, 0, 0, 0, 10^7),nrow = 4, ncol = 4)
 
+set.seed(3)
 assur_out <- bayes_sim_unbalanced(n1 = n1, n2 = n2, repeats = 2,
                                      u = as.matrix(c(-K, 1, K, -1)), C = 0, Xn = NULL,
                                      Vbeta_d = Vbeta_d, Vbeta_a_inv = Vbeta_a_inv,
@@ -333,7 +334,7 @@ head(out$rc_table)
 out$rc_plot
 
 ## adding labels to ggplot
-out$rc_plot + geom_hline(yintercept = 0.9283, linetype = "dashed",
+out$rc_plot + ggplot2::geom_hline(yintercept = 0.9283, linetype = "dashed",
   color = "red", size = 0.45) + geom_vline(xintercept = 857,
   linetype = "dashed", color = "red", size = 0.45) +
   scale_y_continuous(breaks = sort(c(seq(0.7, 1, 0.1), 0.9283))) +
