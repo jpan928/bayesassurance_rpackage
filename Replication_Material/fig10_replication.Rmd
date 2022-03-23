@@ -23,7 +23,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(bayesassurance)
 ```
 
-
 ```{r, echo = TRUE, include = TRUE}
 propdiffCI_classic <- function(n, p1, p2, alpha_1, beta_1, alpha_2, beta_2, sig_level){
   set.seed(1)

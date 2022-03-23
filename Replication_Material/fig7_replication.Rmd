@@ -11,6 +11,10 @@ The function below returns the left-hand-side expression of the precision-based
 solution for determining sample size discussed in Adcock (1997), with 1 - alpha
 isolated on the right hand side.
 ```{r, echo = TRUE, include = TRUE}
+library(bayesassurance)
+```
+
+```{r, echo = TRUE, include = TRUE}
 adcock <- function(n, d, sig_sq){
   sigma <- sqrt(sig_sq)
   lhs <- 2 * pnorm(d / (sigma / sqrt(n))) - 1 
@@ -54,7 +58,7 @@ The next several blocks of code implement the above two functions for various as
 precision, d. The results should overlap one another perfectly when n_a = 0, as shown
 in the figures. Figures are produced using ggplot2. 
 
-### Case 1: d = 0.15
+## Case 1: d = 0.15
 ```{r, echo = FALSE, include = TRUE}
 library(ggplot2)
 n <- seq(5, 300, 5)
@@ -76,11 +80,13 @@ df1 <- as.data.frame(cbind(n, lhs1))
 df2 <- as.data.frame(cbind(n, lhs2))
 
 p <- ggplot(df1, alpha = 0.5, aes(x = n, y = lhs1, color="Adcock Cond"))
-p <- p + geom_line(data = df1, alpha = 0.5, aes(x = n, y = lhs1, color="Adcock Cond"), lwd = 1.2)
+p <- p + geom_line(data = df1, alpha = 0.5, aes(x = n, y = lhs1, 
+     color="Adcock Cond"), lwd = 1.2)
 
-p1 <- p + geom_point(data = df2, alpha = 0.5, aes(x = n, y = lhs2, color="Bayesian Sim"),lwd=1.2) +
-  ylab("Probability of Meeting Analysis Objective") + xlab("Sample Size n") + 
-  ggtitle("Comparison Between Adcock Conditiion and Bayesian Simulation Results")
+p1 <- p + geom_point(data = df2, alpha = 0.5, aes(x = n, y = lhs2, 
+      color="Bayesian Sim"),lwd=1.2) + ylab("Probability of Meeting Analysis Objective") + 
+      xlab("Sample Size n") + ggtitle("Comparison Between Adcock Conditiion and 
+                                      Bayesian Simulation Results")
 
 
 p1  <- p1 + geom_label(
@@ -94,7 +100,7 @@ p1
 
 ```
 
-### Case 2: d = 0.10
+## Case 2: d = 0.10
 ```{r, echo = FALSE, include = TRUE}
 library(ggplot2)
 n <- seq(11, 300, 5)
@@ -133,7 +139,7 @@ p3
 
 ```
 
-### Case 3: d = 0.075
+## Case 3: d = 0.075
 ```{r, echo = FALSE, include = TRUE}
 library(ggplot2)
 n <- seq(20, 300, 5)
@@ -172,7 +178,7 @@ p5
 ```
 
 
-### Case 4: d = 0.30
+## Case 4: d = 0.30
 ```{r, echo = FALSE, include = TRUE}
 library(ggplot2)
 n <- seq(20, 300, 5)
