@@ -40,8 +40,11 @@
 #' assur_vals$assurance_plot
 #' @export
 assurance_nd_na <- function(n, n_a, n_d, theta_0, theta_1, sigsq, alt, alpha){
+
+  # critical difference
   delta <- theta_1 - theta_0
 
+  # computes the assurance based on what is being tested (specification of "alt")
   if(alt == "greater"){
     z_alpha <- qnorm(alpha)
     phi_val <- sqrt((n_d / (n + n_d)) * (1 + n_a / n)) * (((sqrt(n) * delta) / sqrt(sigsq)) + z_alpha)
@@ -64,20 +67,20 @@ assurance_nd_na <- function(n, n_a, n_d, theta_0, theta_1, sigsq, alt, alpha){
   colnames(assur_tab) <- c("n", "Assurance")
   assur_tab <- structure(assur_tab, class = "data.frame")
 
-  # ggplot
-  # if(length(n) > 1){
-  #   assur_plot <- ggplot2::ggplot(assur_tab, alpha = 0.5, aes(x = .data$n, y = .data$Assurance)) +
-  #     ggplot2::geom_line(aes(x = .data$n, y = .data$Assurance), lwd = 1.2) + ggplot2::ggtitle("Assurance Curve") +
-  #     ggplot2::xlab("Sample Size n") + ggplot2::ylab("Assurance")
-  #   assur_plot <- structure(assur_plot, class = "ggplot")
-  # }
-
+  # If n is a vector of sample sizes, the function will create
+  # a full assurance curve that includes both the sample sizes
+  # being passed in as well as everything else in between.
+  # This is done by specifying a wider range of sample
+  # sizes within the bounds of "new_min" and "new_max",
+  # resulting in an updated set of sample sizes referred to
+  # as "new_n".
   if(length(n) > 1){
     new_min <- min(n) - (max(n) - min(n))
     new_max <- (max(n) - min(n)) + max(n)
     new_n <- seq(new_min, new_max, by = 1)
     new_n <- new_n[new_n > 0]
 
+    # evaluates the assurance for all values of new_n
     if(alt == "greater"){
       z_alpha <- qnorm(alpha)
       new_assurvals <- pnorm(sqrt((n_d / (new_n + n_d)) * (1 + n_a / new_n)) * (((sqrt(new_n) * delta) / sqrt(sigsq)) + z_alpha))
@@ -98,7 +101,7 @@ assurance_nd_na <- function(n, n_a, n_d, theta_0, theta_1, sigsq, alt, alpha){
       colnames(new_assurtab) <- c("n", "Assurance")
     }
 
-
+   # Creates assurance plot, highlighting the ones being passed in as red points
     assur_plot <- ggplot2::ggplot(new_assurtab, alpha = 0.5, aes(x = .data$n, y = .data$Assurance)) +
       ggplot2::geom_line(aes(x = .data$n, y = .data$Assurance), lwd = 1.2) + ggplot2::ggtitle("Assurance Curve") +
       ggplot2::xlab("Sample Size n") + ggplot2::ylab("Assurance") + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
