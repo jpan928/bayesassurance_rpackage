@@ -4,7 +4,7 @@
 #' absolute difference between the true underlying
 #' population parameter and the sample estimate falls within a margin
 #' of error no greater than a fixed precision level, \eqn{d}.
-#' @importFrom ggplot2 ggplot aes
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @importFrom pbapply pbsapply
 #' @param n sample size (either vector or scalar).

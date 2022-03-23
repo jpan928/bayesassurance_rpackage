@@ -335,7 +335,7 @@ out$rc_plot
 
 ## adding labels to ggplot
 out$rc_plot + ggplot2::geom_hline(yintercept = 0.9283, linetype = "dashed",
-  color = "red", size = 0.45) + geom_vline(xintercept = 857,
+  color = "red", size = 0.45) + ggplot2::geom_vline(xintercept = 857,
   linetype = "dashed", color = "red", size = 0.45) +
   scale_y_continuous(breaks = sort(c(seq(0.7, 1, 0.1), 0.9283))) +
   scale_x_continuous(breaks = sort(c(seq(200, 1250, 250), 857)))

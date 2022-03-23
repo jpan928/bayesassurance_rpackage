@@ -68,16 +68,13 @@ bayes_sim_unbalanced <- function(n1, n2, repeats = 1, u, C, Xn = NULL, Vn = NULL
                        Vbeta_d, Vbeta_a_inv, sigsq, mu_beta_d, mu_beta_a, alt, alpha, mc_iter,
                        surface_plot = TRUE){
 
-  # library(plotly)
-  # library(plot3D)
-  # library(dplyr)
-  # library(pbapply)
-
   if((length(n1) < 2 | length(n2) < 2) & surface_plot == TRUE){
     surface_plot = FALSE
     warning("Can only set surface_plot = TRUE if n1 and n2 are vectors.")
   }
 
+  # will rely on this embedded function to generate data and
+  # assess satisfaction of analysis objective for n1 and n2
   MC_samp <- function(n1 = n1, n2 = n2){
     n <- rep(c(n1, n2), repeats)
     print(c(n1, n2))
@@ -121,6 +118,8 @@ bayes_sim_unbalanced <- function(n1, n2, repeats = 1, u, C, Xn = NULL, Vn = NULL
       m <- Vbeta_a_inv %*% mu_beta_a + Xn_t %*% Vn_inv %*% yi
       Mm <- M %*% m
 
+      # evaluates satisfaction of analysis objective depending
+      # on the specification of "alt"
       if(alt == "greater"){
         Zi <- ifelse((C - t(u) %*% Mm) / (sqrt(sigsq) * sqrt(t(u) %*% M %*% u))
                      < qnorm(alpha), 1, 0)
@@ -143,7 +142,7 @@ bayes_sim_unbalanced <- function(n1, n2, repeats = 1, u, C, Xn = NULL, Vn = NULL
   }
 
   # If surface plot is TRUE, loop through all possible combinations of n1 and n2
-  # to determine the assurance at each location
+  # to determine the assurance at each location (this is done using plot3D::mesh)
   if(surface_plot == TRUE){
 
     Mesh_grid <- plot3D::mesh(unique(n1), unique(n2))

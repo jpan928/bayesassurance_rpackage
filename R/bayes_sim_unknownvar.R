@@ -93,8 +93,8 @@
 bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, Vbeta_a_inv, mu_beta_d,
                              mu_beta_a, a_sig_a, b_sig_a, a_sig_d, b_sig_d, alt = "greater", alpha, mc_iter){
 
-  #library(MASS)
-  library(mvtnorm)
+  # will rely on this embedded function to generate data and
+  # assess satisfaction of analysis objective for n
   MC_sample <- function(n = n){
     mu_beta_a_t <- t(mu_beta_a)
 
@@ -128,6 +128,14 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
 
     count2 <- 0 # counter for datasets that meet analysis objective
 
+    # There will be two loops: the outer loop loops through R
+    # datasets (indexed by i) characterized by uniquely drawn
+    # gamma_sq values that are used to generate y_ni. This y_ni is then used
+    # to determine the components of the posterior distribution,
+    # to which iterates through a set of MC samples, determining
+    # if the overall i-th dataset satisfies the analysis objective.
+    # The proportion of datasets that meet the analysis objective
+    # is the assurance.
     for(i in 1:R){
       print(c(n, i))
 
@@ -141,32 +149,30 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
       Mm <- M %*% m
       b_star <- b_sig_a + 0.5 * (m_V_m + t(y_ni) %*% Vn_inv %*% y_ni - t(m) %*% Mm)
 
-      count1 <- 0 # counter for number of times analysis objective has been
-      # met within the i-th dataset
+      count1 <- 0
+      # counter for number of times analysis objective is
+      # met within the i-th dataset, where the i-th dataset is
+      # characterized by a specific gamma_sq, see above.
       for(j in 1:mc_iter){
         sig_j <- 1 / rgamma(n = 1, a_star, b_star)
         beta_j <- MASS::mvrnorm(n = 1, Mm, sig_j * M)
 
+        # checks satisfaction of analysis objective specific to
+        # how "alt" is specified
         if(alt == "greater"){
           Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
                        < qnorm(alpha), 1, 0)
-          #count1 <- ifelse(Zi == 1, count1 <- count1 + 1, count1 <- count1)
         }else if(alt == "less"){
           Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
                        > qnorm(1-alpha), 1, 0)
-          #count1 <- ifelse(Zi == 1, count1 <- count1 + 1, count1 <- count1)
         }else if(alt == "two.sided"){
           Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
                        > qnorm(1-alpha/2) | (C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
                        < qnorm(alpha/2), 1, 0)
-          #count1 <- ifelse(Zi == 1, count1 <- count1 + 1, count1 <- count1)
         }
-
-
         count1 <- ifelse(Zj == 1, count1 <- count1 + 1, count1 <- count1)
       }
 
-      #Zi <- ifelse((count1 / mc_iter) <= alpha, 1, 0)
       Zi <- ifelse((count1 / mc_iter) >= 1 - alpha, 1, 0)
       count2 <- ifelse(Zi == 1, count2 <- count2 + 1, count2 <- count2)
       # Analysis Stage Ends
