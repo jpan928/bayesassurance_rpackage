@@ -16,7 +16,8 @@ source as the package is not yet available on CRAN.
   load the package using `library(devtools)` once installation is complete. 
   3. Install the bayesassurance package directly through Github by running
   `devtools::install_github("jpan928/bayesassurance_rpackage")`. 
-  You may be asked to install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/). 
+  You may be asked to install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/)
+  on a Windows machine. 
   4. Load package using `library(bayesassurance)` and start using package normally. 
 
 
@@ -28,7 +29,7 @@ Alternatively, you can build the package using the tar.gz file.
 
 \textbf{Within R Studio}
 
-  1. Download the bayesassurance_0.1.0.tar.gz file. 
+  1. Download the `bayesassurance_0.1.0.tar.gz` file. 
   2. Open R Studio.
   3. In the R prompt, navigate to where this file is stored using `setwd()`. 
   4. Run `install.packages("bayesassurance_0.1.0.tar.gz", repos = NULL, type = "source")`. 
@@ -49,7 +50,7 @@ Alternatively, you can build the package using the tar.gz file.
 
 \textbf{Within R Studio}
 
-  1. Download the bayesassurance_0.1.0.tar.gz file. 
+  1. Download the `bayesassurance_0.1.0.tar.gz` file. 
   2. Open R Studio.
   3. In the R prompt, navigate to where this file is stored using `setwd()`. 
   4. Run `install.packages("bayesassurance_0.1.0.tar.gz", repos = NULL, type = "source")`.
@@ -57,16 +58,15 @@ Alternatively, you can build the package using the tar.gz file.
   5. Load package using `library(bayesassurance)` and start using package normally. 
   
   
-\textbf{On Command Prompt}  
+\textbf{Within Command Prompt}  
 
-  1. Download the bayesassurance_0.1.0.tar.gz file.
-  2. Open Terminal.
-  3. Identify path of the folder to where R is installed and run `PATH <your.file.path.here>`. 
+  1. Download the `bayesassurance_0.1.0.tar.gz` file.
+  2. Open command prompt.
+  3. Identify path of the folder to where R is installed and run `PATH <your/filepath/here>`. 
   An example of this file path is C:\Program Files\R\R-4.1.3\bin\x64. 
-  4. On the same command prompt, navigate to the directory containing the `bayesassurance_rpackage` folder.
-  (Do not go into this folder.)
+  4. On the same command prompt, navigate to the directory containing `bayesassurance_0.1.0.tar.gz`. 
   5. Enter `R CMD INSTALL bayesassurance_0.1.0.tar.gz` in the command prompt to install the 
-  bayesassurance package. 
+  package. 
   6. Open R Studio and run `library(bayesassurance)` and start using package normally. 
 
 
