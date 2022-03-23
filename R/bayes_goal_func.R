@@ -37,6 +37,7 @@
 #'
 bayes_goal_func <- function(n, Xn = NULL, K, pi, sigsq, u, beta_0, beta_1){
 
+  # initial checks
   is.scalar <- function(x) {is.atomic(x) && length(x) == 1L}
 
 
@@ -56,11 +57,14 @@ bayes_goal_func <- function(n, Xn = NULL, K, pi, sigsq, u, beta_0, beta_1){
     }
   }
 
+  # will rely on this embedded function to determine the
+  # rate of correct classification for each n
   rate.correct.class <- function(n = n){
 
     # Case 1: beta_0 and beta_1 are scalar entries
     if(is.scalar(beta_0) & is.scalar(beta_1)){
 
+      # generates a design matrix if Xn = NULL
       if(is.null(Xn)){
         Xn <- bayesassurance::gen_Xn(n = n)
       }
@@ -68,12 +72,12 @@ bayes_goal_func <- function(n, Xn = NULL, K, pi, sigsq, u, beta_0, beta_1){
       # check if u'beta is estimable by using the principle theorem that
       # a solution must exist for z in the linear system X'Xz = u
 
-         ## check this condition by using ranks to see if solution(s) exist, i.e.
+         ## checks the above condition by using properties of ranks to see if solution(s) exist, i.e.
          ## X'Xz = u is inconsistent (no solution exists) iff rank(X'X) < rank(X'X|u)
 
       if((qr(t(Xn) %*% Xn)$rank == qr(as.matrix(cbind(t(Xn) %*% Xn, u)))$rank) &
          (qr(t(Xn) %*% Xn)$rank <= dim(t(Xn))[2])){
-          # applies Singular Value Decomposition to solve u = X'z, where X is n x p
+          # applies Singular Value Decomposition to solve system u = X'z, where X is n x p
           Xn_svd <- svd(t(Xn))
           Xn_diag <- 1/Xn_svd$d
           z <- Xn_svd$v %*% Xn_diag %*% t(Xn_svd$u) %*% u
