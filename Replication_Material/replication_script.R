@@ -324,6 +324,7 @@ out$assurance_plot
 ## Page 35
 ## Example 12 of Paper
 ## Reproduces Figure 11
+library(ggplot2)
 n <- seq(100, 1200, 10)
 
 set.seed(3)
@@ -346,7 +347,6 @@ out$rc_plot + ggplot2::geom_hline(yintercept = 0.9283, linetype = "dashed",
 
 ## Page 36
 ## Reproduces Figure 12
-library(ggplot2)
 library(latex2exp)
 
 # Function that returns the minimum rate of correct classification r_star
