@@ -33,24 +33,27 @@ bayes_adcock <- function(n, d, mu_beta_a, mu_beta_d, n_a, n_d, sig_sq, alpha, mc
 
   count <- 0
 
+  # will rely on this embedded function to generate data and
+  # assess satisfaction of analysis objective for n
   MC_sample <- function(n = n){
   for(i in 1:mc_iter){
-    # Design Stage Begins
+    # Design Stage Begins (data is generated)
     var_d <- sig_sq * ((n_d + n) / (n * n_d))
     xbar <- rnorm(n=1, mean = mu_beta_d, sd = sqrt(var_d))
     # Design Stage Ends
 
-    # Analysis Stage Begins
-
-    # posterior mean
+    # Analysis Stage Begins (checks if data meets analysis objective)
+    # Posterior mean for unknown parameter mu
     lambda <- ((n_a * mu_beta_a) + (n * xbar)) / (n_a + n)
 
+    # Components that make up the analysis stage objective
     phi_1 <- (sqrt(n_a + n) / sqrt(sig_sq)) * (xbar + d - lambda)
     phi_2 <- (sqrt(n_a + n) / sqrt(sig_sq)) * (xbar - d - lambda)
 
     # Analysis Stage Objective
     Zi <- ifelse(pnorm(phi_1) - pnorm(phi_2) >= 1 - alpha, 1, 0)
 
+    # Add 1 to count if analysis objective is met
     count <- ifelse(Zi == 1, count <- count + 1, count <- count)
     # Analysis Stage Ends
   }
@@ -59,7 +62,8 @@ bayes_adcock <- function(n, d, mu_beta_a, mu_beta_d, n_a, n_d, sig_sq, alpha, mc
   return(assurance)
   }
 
-  # checks the analysis objective for each n
+  # determines the assurance across all values of n using
+  # the MC_sample() function
   assurance <- pbapply::pbsapply(n, function(i) MC_sample(n=i))
 
   # Assurance table
