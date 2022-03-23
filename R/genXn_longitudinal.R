@@ -55,7 +55,7 @@ gen_Xn_longitudinal <- function(ids, from, to, num_repeated_measures, poly_degre
   Xn_1 <- matrix(0, nrow=nrow(d), ncol=p)
   Xn_2 <- matrix(0, nrow=nrow(d), ncol=p)
 
-  # handles intercepts of design matrix
+  # manages intercepts of design matrix
   for(i in 1:p){
     ones <- rep(1, n[i])
     if(i == 1){
@@ -68,7 +68,7 @@ gen_Xn_longitudinal <- function(ids, from, to, num_repeated_measures, poly_degre
   }
 
 
-  # handles coefficients of design matrix
+  # manages coefficients of design matrix
   for(i in 1:p){
     if(i == 1){
       Xn_2[1:n[i], i] <- t[1:n[i]]
@@ -79,6 +79,8 @@ gen_Xn_longitudinal <- function(ids, from, to, num_repeated_measures, poly_degre
     }
   }
 
+  # adds additional columns depending on whether user's model
+  # is of higher degree (e.g. quadratic, cubic)
   extra_cols <- function(poly_degree, x){
     result <- x^poly_degree
     return(result)
