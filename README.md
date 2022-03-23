@@ -40,16 +40,10 @@ Alternatively, you can build the package using the tar.gz file.
   2. Open Terminal.
   3. Navigate to the directory containing `bayesassurance_0.1.0.tar.gz`.
   4. In the terminal, enter `R CMD INSTALL bayesassurance_0.1.0.tar.gz` to install the 
-  package (Make sure you have `XCode` installed). 
-  3. Navigate to the directory containing the `bayesassurance_rpackage` folder.
-  (Do not go into this folder.)
-  3. Identify path of the folder to where R is installed and run `PATH <your.file.path.here>`. 
-  An example of this file path is C:\Program Files\R\R-4.1.3\bin\x64. 
-  4. On the same command prompt, navigate to the directory containing the `bayesassurance_rpackage` folder.
-  (Do not go into this folder.)
-  5. Enter `R CMD INSTALL bayesassurance_0.1.0.tar.gz` in the command prompt to install the 
-  bayesassurance package. 
-  6. Open R Studio and run `library(bayesassurance)` and start using package normally. 
+  package (Make sure you have [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) 
+  installed). 
+  5. Open R Studio and run `library(bayesassurance)` and start using package normally. 
+  
   
 ### Windows
 
