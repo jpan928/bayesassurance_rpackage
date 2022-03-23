@@ -5,7 +5,7 @@
 #' for equal-sized samples through Monte Carlo sampling.
 #' The function also carries the capability to process longitudinal data.
 #' See Argument descriptions for more detail.
-#' @importFrom ggplot2 ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @importFrom pbapply pbsapply
 #' @param n sample size (either scalar or vector). When `longitudinal = TRUE`, `n` denotes the

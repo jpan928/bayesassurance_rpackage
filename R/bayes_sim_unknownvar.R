@@ -4,7 +4,7 @@
 #' through Monte Carlo sampling with the added assumption that
 #' the variance is unknown.
 #'
-#' @importFrom ggplot2 ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @importFrom MASS mvrnorm
 #' @importFrom pbapply pbsapply

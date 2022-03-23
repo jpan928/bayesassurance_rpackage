@@ -2,7 +2,7 @@
 #'
 #' Returns the Bayesian assurance corresponding to a hypothesis test for
 #' difference in two independent proportions.
-#' @importFrom ggplot2 ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @importFrom pbapply pbsapply
 #' @param n1 sample size of first group

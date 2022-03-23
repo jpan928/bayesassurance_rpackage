@@ -4,7 +4,7 @@
 #' as true or false, where the hypothesis test is specified as
 #' \deqn{H0: u'\beta = c0} \deqn{vs.} \deqn{H1: u'\beta = c1}. See
 #' vignette for more details.
-#' @importFrom ggplot2 ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @param n sample size (vector or scalar).
 #' @param Xn design matrix that characterizing the data. This is
