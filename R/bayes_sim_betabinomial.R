@@ -57,7 +57,7 @@
 bayes_sim_betabin <- function(n1, n2, p1, p2, alpha_1, alpha_2, beta_1, beta_2, sig_level, alt, mc_iter = 5000){
     count <- 0
 
-    set.seed(1)
+    # set.seed(1)
     if(is.null(p1) == TRUE & is.null(p2) == TRUE){
       p1 <- rbeta(n=1, alpha_1, beta_1)
       p2 <- rbeta(n=1, alpha_2, beta_2)
@@ -123,11 +123,14 @@ bayes_sim_betabin <- function(n1, n2, p1, p2, alpha_1, alpha_2, beta_1, beta_2, 
       return(assurance)
     }
 
+    # objects returned if n1 and n2 are vectors
     if(length(n1) > 1 & length(n2) > 1){
       assurance_vals <- pbapply::pbmapply(MC_samp, n1 = n1, n2 = n2)
       assur_tab <- as.data.frame(cbind(n1, n2, assurance_vals))
       colnames(assur_tab) <- c("n1", "n2", "Assurance")
 
+      # returns an assurance plot only if vectors n1 and n2 are identical, enabling
+      # the plot to focus on a single n on the x-axis
       if(identical(n1, n2)){
         assur_plot <- ggplot2::ggplot(assur_tab, alpha = 0.5, aes(x = .data$`n1`,
                                                                   y = .data$Assurance)) +
@@ -141,8 +144,8 @@ bayes_sim_betabin <- function(n1, n2, p1, p2, alpha_1, alpha_2, beta_1, beta_2, 
       }
     }
 
-
-    #return(list(assur_val = paste0("Assurance: ", round(assurance, 3)), mc_samples = mc_iter))
+    # objects returned when a scalar is passed in for n1 and n2
+    return(list(assur_val = paste0("Assurance: ", round(assurance, 3)), mc_samples = mc_iter))
 
 }
 
