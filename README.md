@@ -18,7 +18,9 @@ source as the package is not yet available on CRAN.
   `devtools::install_github("jpan928/bayesassurance_rpackage")`. 
   You may be asked to install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/)
   on a Windows machine. 
-  4. Load package using `library(bayesassurance)` and start using package normally. 
+  4. If prompted with "These packages have more recent versions available. It is recommended to
+  update all of them. Which would you like to update?", type "1" and press Enter. 
+  5. Load package using `library(bayesassurance)` and start using package normally. 
 
 
 ## Using `tar.gz` File
