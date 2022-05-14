@@ -11,7 +11,7 @@ Description: Functions that compute the Bayesian assurance under various
     probability of observing a positive outcome,  which addresses subtle imitations 
     that take place when using the standard single-prior approach. 
 Roxygen: list(markdown = TRUE)
-Version: 0.1.0
+Version: 0.1.0.9000
 Author: Jane Pan
 Maintainer: Jane Pan <jpan1@ucla.edu>
 License: GPL (>= 2)
