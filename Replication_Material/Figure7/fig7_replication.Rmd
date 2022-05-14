@@ -55,7 +55,7 @@ bayes_adcock_lhs <- function(n, d, mu_beta_a, mu_beta_d, n_a, n_d, sig_sq){
 
 
 The next several blocks of code implement the above two functions for various assignments of
-precision, d. The results should overlap one another perfectly when n_a = 0, as shown
+precision, $d$. The results should overlap one another perfectly when $n_a$ = 0, as shown
 in the figures. Figures are produced using ggplot2. 
 
 ## Case 1: d = 0.15
