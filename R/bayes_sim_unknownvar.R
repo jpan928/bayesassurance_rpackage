@@ -4,36 +4,48 @@
 #' through Monte Carlo sampling with the added assumption that
 #' the variance is unknown.
 #'
-#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text xlab ylab ggtitle scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_hline geom_vline aes theme element_text 
+#' @importFrom ggplot2 xlab ylab ggtitle scale_x_continuous scale_y_continuous
 #' @importFrom rlang .data
 #' @importFrom MASS mvrnorm
+#' @importFrom stats qnorm rgamma
 #' @importFrom pbapply pbsapply
+#' @import mathjaxr
 #' @param n sample size (either vector or scalar)
-#' @param p column dimension of design matrix \eqn{Xn}. If \eqn{Xn} = NULL,
-#' \eqn{p} must be specified to denote the column dimension of the default design matrix generated
+#' @param p column dimension of design matrix `Xn`. If `Xn = NULL`,
+#' `p` must be specified to denote the column dimension of the default 
+#' design matrix generated
 #' by the function.
 #' @param u a scalar or vector to evaluate \deqn{u'\beta > C,}
 #' where \eqn{\beta} is an unknown parameter that is to be estimated.
 #' @param C constant value to be compared to when evaluating \eqn{u'\beta > C}
-#' @param R number of iterations we want to pass through to check for satisfaction of the analysis stage objective. The proportion of those
-#' iterations meeting the analysis objective corresponds to the approximated Bayesian assurance.
-#' @param Xn design matrix that characterizes where the data is to be generated from. This is
-#' specifically given by the normal linear regression model \deqn{yn = Xn\beta + \epsilon,}
-#' \deqn{\epsilon ~ N(0, \sigma^2 Vn),} where \eqn{\sigma^2} is unknown in this setting. Note that
-#' Xn must have column dimension \eqn{p}.
-#' @param Vn an \eqn{n} by \eqn{n} correlation matrix for the marginal distribution of the sample data \eqn{yn}.
-#' Takes on an identity matrix when set to NULL.
-#' @param Vbeta_d correlation matrix that helps describe the prior information on \eqn{\beta} in the design stage
-#' @param Vbeta_a_inv inverse-correlation matrix that helps describe the prior information on \eqn{\beta} in the analysis stage
+#' @param R number of iterations we want to pass through to check for 
+#' satisfaction of the analysis stage objective. The proportion of those
+#' iterations meeting the analysis objective corresponds to the approximated 
+#' Bayesian assurance.
+#' @param Xn design matrix that characterizes where the data is to be generated 
+#' from. This is specifically given by the normal linear regression model 
+#' \deqn{yn = Xn\beta + \epsilon,} \deqn{\epsilon ~ N(0, \sigma^2 Vn),} 
+#' where \eqn{\sigma^2} is unknown in this setting. Note that
+#' `Xn` must have column dimension `p`.
+#' @param Vn an `n` by `n` correlation matrix for the marginal distribution 
+#' of the sample data `yn`. Takes on an identity matrix when set to `NULL`.
+#' @param Vbeta_d correlation matrix that helps describe the prior information 
+#' on \eqn{\beta} in the design stage
+#' @param Vbeta_a_inv inverse-correlation matrix that helps describe the prior 
+#' information on \eqn{\beta} in the analysis stage
 #' @param mu_beta_d design stage mean
 #' @param mu_beta_a analysis stage mean
-#' @param a_sig_d,b_sig_d shape and scale parameters of the inverse gamma distribution where variance \eqn{\sigma^2}
-#' is sampled from in the design stage
-#' @param a_sig_a,b_sig_a shape and scale parameters of the inverse gamma distribution where variance \eqn{\sigma^2}
+#' @param a_sig_d,b_sig_d shape and scale parameters of the inverse gamma 
+#' distribution where variance \eqn{\sigma^2} is sampled from in the design 
+#' stage
+#' @param a_sig_a,b_sig_a shape and scale parameters of the inverse 
+#' gamma distribution where variance \eqn{\sigma^2}
 #' is sampled from in the analysis stage
-#' @param alt specifies alternative test case, where alt = "greater" tests if \eqn{u'\beta > C},
-#' alt = "less" tests if \eqn{u'\beta < C}, and alt = "two.sided" performs a two-sided test. By default,
-#' alt = "greater".
+#' @param alt specifies alternative test case, where `alt = "greater"` 
+#' tests if \eqn{u'\beta > C}, `alt = "less"` tests if \eqn{u'\beta < C}, 
+#' and `alt = "two.sided"` performs a two-sided test. By default,
+#' `alt = "greater"`.
 #' @param alpha significance level
 #' @param mc_iter number of MC samples evaluated under the analysis objective
 #' @return a list of objects corresponding to the assurance approximations
@@ -45,12 +57,15 @@
 #'      and evaluated
 #' }
 #' @examples
-#' ## O'Hagan and Stevens (2001) include a series of examples with pre-specified parameters that we will
-#' ## be using to replicate their results through our Bayesian assurance simulation.
+#' 
+#' ## O'Hagan and Stevens (2001) include a series of examples with 
+#' ## pre-specified parameters that we will be using to replicate their 
+#' ## results through our Bayesian assurance simulation.
 #' ## The inputs are as follows:
 #' \dontrun{
 #' n <- 285
-#' p <- 4 # two efficacy parameters for each treatment, two cost parameters for each treatment
+#' p <- 4 # two efficacy parameters for each treatment, two cost parameters 
+#' for each treatment
 #' K <- 20000
 #' C <- 0
 #' u <- as.matrix(c(-K, 1, K, -1))
@@ -67,7 +82,8 @@
 #' Vn[(3*n - (n-1)):(3*n), (3*n - (n-1)):(3*n)] <- diag(n)
 #' Vn[(4*n - (n-1)):(4*n), (4*n - (n-1)):(4*n)] <- (tau2 / sig)^2 * diag(n)
 #'
-#' Vbeta_d <- (1 / sigsq) * matrix(c(4, 0, 3, 0, 0, 10^7, 0, 0, 3, 0, 4, 0, 0, 0, 0, 10^7),
+#' Vbeta_d <- (1 / sigsq) * 
+#' matrix(c(4, 0, 3, 0, 0, 10^7, 0, 0, 3, 0, 4, 0, 0, 0, 0, 10^7),
 #' nrow = 4, ncol = 4)
 #' mu_beta_d <- as.matrix(c(5, 6000, 6.5, 7200))
 #' mu_beta_a <- as.matrix(rep(0, p))
@@ -79,10 +95,13 @@
 #' b_sig_a <- 0
 #' R <- 150
 #'
-#' bayesassurance::bayes_sim_unknownvar(n = n, p = 4, u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 150,
-#' Xn = NULL, Vn = Vn, Vbeta_d = Vbeta_d, Vbeta_a_inv = Vbeta_a_inv, mu_beta_d = mu_beta_d,
-#' mu_beta_a = mu_beta_a, a_sig_a = a_sig_a, b_sig_a = b_sig_a, a_sig_d = a_sig_d,
-#' b_sig_d = b_sig_d, alt = "two.sided", alpha = 0.05, mc_iter = 5000)
+#' bayesassurance::bayes_sim_unknownvar(n = n, p = 4, 
+#' u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 150,
+#' Xn = NULL, Vn = Vn, Vbeta_d = Vbeta_d, 
+#' Vbeta_a_inv = Vbeta_a_inv, mu_beta_d = mu_beta_d,
+#' mu_beta_a = mu_beta_a, a_sig_a = a_sig_a, b_sig_a = b_sig_a, 
+#' a_sig_d = a_sig_d, b_sig_d = b_sig_d, alt = "two.sided", alpha = 0.05, 
+#' mc_iter = 1000)
 #'
 #'}
 #' @seealso \code{\link{bayes_sim}} for the Bayesian assurance function
@@ -90,8 +109,10 @@
 #' @export
 
 
-bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, Vbeta_a_inv, mu_beta_d,
-                             mu_beta_a, a_sig_a, b_sig_a, a_sig_d, b_sig_d, alt = "greater", alpha, mc_iter){
+bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, 
+                                 Vbeta_a_inv, mu_beta_d, mu_beta_a, a_sig_a, 
+                                 b_sig_a, a_sig_d, b_sig_d, alt = "greater", 
+                                 alpha, mc_iter){
 
   # will rely on this embedded function to generate data and
   # assess satisfaction of analysis objective for n
@@ -104,7 +125,7 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
            matrix wasn't specified in function call.")
       }else{
         Xn <- bayesassurance::gen_Xn(n = rep(n, p))
-        Xn_t = t(Xn)
+        Xn_t <- t(Xn)
       }
     }
 
@@ -121,7 +142,7 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
       Vn <- matrix(0, nrow = n*p, ncol = n*p)
       Vn <- diag(n)
     }
-    Vn_inv = chol2inv(chol(Vn))
+    Vn_inv <- chol2inv(chol(Vn))
     L_tran <- chol(Vbeta_a_inv + Xn_t %*% Vn_inv %*% Xn)
     v <- backsolve(L_tran, Vn)
     M <- v %*% t(v)
@@ -140,35 +161,40 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
       print(c(n, i))
 
       # Design Stage Begins
-      gamma_sq <- 1 / rgamma(n = 1, a_sig_d, b_sig_d)
+      gamma_sq <- 1 / stats::rgamma(n = 1, a_sig_d, b_sig_d)
       y_ni <- MASS::mvrnorm(1, Xn_mu, gamma_sq * XVX + gamma_sq * Vn)
       # Design Stage Ends
 
       # Analysis Stage Begins
       m <- V_mu + Xn_t %*% Vn_inv %*% y_ni
       Mm <- M %*% m
-      b_star <- b_sig_a + 0.5 * (m_V_m + t(y_ni) %*% Vn_inv %*% y_ni - t(m) %*% Mm)
+      b_star <- b_sig_a + 0.5 * (m_V_m + t(y_ni) %*% Vn_inv %*% y_ni - 
+                                   t(m) %*% Mm)
 
       count1 <- 0
       # counter for number of times analysis objective is
       # met within the i-th dataset, where the i-th dataset is
       # characterized by a specific gamma_sq, see above.
       for(j in 1:mc_iter){
-        sig_j <- 1 / rgamma(n = 1, a_star, b_star)
+        sig_j <- 1 / stats::rgamma(n = 1, a_star, b_star)
         beta_j <- MASS::mvrnorm(n = 1, Mm, sig_j * M)
 
         # checks satisfaction of analysis objective specific to
         # how "alt" is specified
         if(alt == "greater"){
-          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
-                       < qnorm(alpha), 1, 0)
+          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * 
+                       sqrt(t(u) %*% M %*% u))
+                       < stats::qnorm(alpha), 1, 0)
         }else if(alt == "less"){
-          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
-                       > qnorm(1-alpha), 1, 0)
+          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * 
+                       sqrt(t(u) %*% M %*% u))
+                       > stats::qnorm(1-alpha), 1, 0)
         }else if(alt == "two.sided"){
-          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
-                       > qnorm(1-alpha/2) | (C - t(u) %*% Mm) / (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
-                       < qnorm(alpha/2), 1, 0)
+          Zj <- ifelse((C - t(u) %*% Mm) / (sqrt(sig_j) * 
+                       sqrt(t(u) %*% M %*% u))
+                       > stats::qnorm(1-alpha/2) | (C - t(u) %*% Mm) / 
+                         (sqrt(sig_j) * sqrt(t(u) %*% M %*% u))
+                       < stats::qnorm(alpha/2), 1, 0)
         }
         count1 <- ifelse(Zj == 1, count1 <- count1 + 1, count1 <- count1)
       }
@@ -192,16 +218,20 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d, V
 
   # ggplot
   if(length(n) > 1){
-    assur_plot <- ggplot2::ggplot(assur_tab, alpha = 0.5, aes(x = .data$n, y = .data$Assurance)) +
-      ggplot2::geom_line(aes(x = .data$n, y = .data$Assurance), lwd = 1.2) + ggplot2::ggtitle("Assurance Curve") +
+    assur_plot <- ggplot2::ggplot(assur_tab, alpha = 0.5, 
+      ggplot2::aes(x = .data$n, y = .data$Assurance)) +
+      ggplot2::geom_line(aes(x = .data$n, y = .data$Assurance), lwd = 1.2) + 
+      ggplot2::ggtitle("Assurance Curve") +
       ggplot2::xlab("Sample Size n") + ggplot2::ylab("Assurance")
     assur_plot <- structure(assur_plot, class = "ggplot")
   }
 
   if(length(n) > 1){
-    return(list(assurance_table = assur_tab, assur_plot = assur_plot, mc_samples = mc_iter))
+    return(list(assurance_table = assur_tab, assur_plot = assur_plot, 
+                mc_samples = mc_iter))
   }else{
-    return(list(assur_val = paste0("Assurance: ", round(assurance, 3)), mc_samples = mc_iter))
+    return(list(assur_val = paste0("Assurance: ", round(assurance, 3)), 
+                mc_samples = mc_iter))
   }
 
 }

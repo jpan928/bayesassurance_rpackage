@@ -23,27 +23,29 @@ bayes_sim_betabin(
 
 \item{n2}{sample size of second group}
 
-\item{p1}{proportion of successes in first group. Takes on a NULL (default) assignment
-if unknown.}
+\item{p1}{proportion of successes in first group. Takes on a NULL (default)
+assignment if unknown.}
 
-\item{p2}{proportion of successes in second group. Takes on a NULL (default) assignment
-if unknown.}
+\item{p2}{proportion of successes in second group. Takes on a NULL
+(default) assignment if unknown.}
 
-\item{alpha_1, beta_1}{shape parameters for the distribution of p1 if p1 is not known:
-\eqn{p1 ~ Beta(\alpha_1, \beta_1)}}
+\item{alpha_1, beta_1}{shape parameters for the distribution of \code{p1}
+if \code{p1} is unknown: \eqn{p1 ~ Beta(\alpha_1, \beta_1)}}
 
-\item{alpha_2, beta_2}{shape parameters for the distribution of p2 if p2 is not known:
-\eqn{p2 ~ Beta(\alpha_2, \beta_2)}}
+\item{alpha_2, beta_2}{shape parameters for the distribution of p2 if
+p2 is unknown: \eqn{p2 ~ Beta(\alpha_2, \beta_2)}}
 
 \item{sig_level}{significance level}
 
-\item{alt}{a character string specifying the alternative hypothesis, must be one of
-"two.sided" (default), "greater" or "less".}
+\item{alt}{a character string specifying the alternative hypothesis,
+must select one of following choices: \code{"two.sided"} (default),
+\code{"greater"} or \code{"less"}.}
 
 \item{mc_iter}{number of MC samples evaluated under the analysis objective}
 }
 \value{
-approximate Bayesian assurance of independent two-sample proportion test
+approximate Bayesian assurance of independent two-sample proportion
+test
 }
 \description{
 Returns the Bayesian assurance corresponding to a hypothesis test for
@@ -51,33 +53,17 @@ difference in two independent proportions.
 }
 \examples{
 
-# Simulation that overlays frequentist power with Bayesian assurance
-# for independent two-sample proportion test.
-
-library(ggplot2)
-
 #########################################################
 # alpha1 = 0.5, beta1 = 0.5, alpha2 = 0.5, beta2 = 0.5 ##
 #########################################################
+\dontrun{
 n <- seq(40, 1000, 10)
+assur_vals <- bayesassurance::bayes_sim_betabin(n1 = n, n2 = n, 
+p1 = 0.25, p2 = 0.2, alpha_1 = 0.5, beta_1 = 0.5, alpha_2 = 0.5, 
+beta_2 = 0.5, sig_level = 0.05, alt = "greater")
 
-power_vals <- sapply(n, function(i) bayesassurance::propdiffCI_classic(i, p1 = 0.25, p2 = 0.2, alpha_1 = NULL,
-beta_1 = NULL, alpha_2 = NULL, beta_2 = NULL, sig_level = 0.05))
-
-df1 <- as.data.frame(cbind(n, power_vals))
-
-assur_vals <- sapply(n, function(i) bayesassurance::bayes_sim_betabin(n1 = i, n2 = i, p1 = 0.25, p2 = 0.2, alpha_1 = 0.5, beta_1 = 0.5,
-                                        alpha_2 = 0.5, beta_2 = 0.5, sig_level = 0.05, alt = "two.sided"))
-
-df2 <- as.data.frame(cbind(n, assur_vals))
-
-p1 <- ggplot(df1, alpha = 0.5, aes(x = n, y = power_vals, color="Frequentist Power"))
-p1 <- p1 + geom_line(alpha = 0.5, aes(x = n, y = power_vals, color="Frequentist Power"), lwd = 1.2)
-p2 <- p1 + geom_point(data = df2, alpha = 0.5, aes(x = n, y = assur_vals, color = "Bayesian Assurance"),
-lwd = 1.2) + ylab("Power/Assurance") + xlab(~ paste("Sample Size n = ", "n"[1], " = ", "n"[2])) +
-ggtitle("Power/Assurance Curves of Difference in Proportions")
-p2 <- p2 + geom_label(aes(525, 0.6,
-                         label = "~p[1]-p[2] == 0.05"), parse = TRUE,
-                         color = "black", size = 3)
+assur_vals$assurance_table
+assur_vals$assurance_plot
+}
 
 }

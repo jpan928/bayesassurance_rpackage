@@ -1,22 +1,39 @@
-Package: bayesassurance
-Date: 2022-03-20
 Type: Package
+Package: bayesassurance
 Title: Bayesian Assurance Computation
-Depends: R (>= 3.5.0)
-Description: Functions that compute the Bayesian assurance under various 
+Version: 0.1.0
+Authors@R: c(
+    person("Jane", "Pan", email = "jpan1@ucla.edu", role = c("cre", "aut")),
+    person("Sudipto", "Banerjee", email = "sudipto@ucla.edu", role = "aut"))
+Description: Computes Bayesian assurance under various 
     settings characterized by different assumptions and objectives, including 
     precision-based conditions, credible intervals, and goal functions. 
     All simulation-based functions included in this package rely on a two-stage 
-    Bayesian method that assigns two distinct priors to evaluate the unconditional 
-    probability of observing a positive outcome,  which addresses subtle imitations 
+    Bayesian method that assigns two distinct priors to evaluate the 
+    probability of observing a positive outcome, which addresses subtle imitations 
     that take place when using the standard single-prior approach. 
-Roxygen: list(markdown = TRUE)
-Version: 0.1.0.9000
-Author: Jane Pan
-Maintainer: Jane Pan <jpan1@ucla.edu>
 License: GPL (>= 2)
+URL: https://github.com/jpan928/bayesassurance_rpackage
+Depends: 
+    R (>= 3.5.0),
+Imports: 
+    ggplot2 (>= 3.3.5), 
+    plotly (>= 4.10.0), 
+    plot3D (>= 1.4), 
+    pbapply (>= 1.5.0), 
+    dplyr (>= 1.0.8), 
+    MASS (>= 7.3.55), 
+    rlang (>= 1.0.2), 
+    stats (>= 4.0.5),
+    mathjaxr (>= 1.5.2)
+Roxygen: list(markdown = TRUE)
+Maintainer: Jane Pan <jpan1@ucla.edu>
 Encoding: UTF-8
-LazyData: true
-RdMacros: mathjaxr, Rdpack
-Imports: mathjaxr, Rdpack, ggplot2, plotly, plot3D, pbapply, dplyr
+Language: en-US
 RoxygenNote: 7.1.2
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

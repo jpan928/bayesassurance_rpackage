@@ -28,8 +28,9 @@ bayes_sim_unknownvar(
 \arguments{
 \item{n}{sample size (either vector or scalar)}
 
-\item{p}{column dimension of design matrix \eqn{Xn}. If \eqn{Xn} = NULL,
-\eqn{p} must be specified to denote the column dimension of the default design matrix generated
+\item{p}{column dimension of design matrix \code{Xn}. If \code{Xn = NULL},
+\code{p} must be specified to denote the column dimension of the default
+design matrix generated
 by the function.}
 
 \item{u}{a scalar or vector to evaluate \deqn{u'\beta > C,}
@@ -37,34 +38,42 @@ where \eqn{\beta} is an unknown parameter that is to be estimated.}
 
 \item{C}{constant value to be compared to when evaluating \eqn{u'\beta > C}}
 
-\item{R}{number of iterations we want to pass through to check for satisfaction of the analysis stage objective. The proportion of those
-iterations meeting the analysis objective corresponds to the approximated Bayesian assurance.}
+\item{R}{number of iterations we want to pass through to check for
+satisfaction of the analysis stage objective. The proportion of those
+iterations meeting the analysis objective corresponds to the approximated
+Bayesian assurance.}
 
-\item{Xn}{design matrix that characterizes where the data is to be generated from. This is
-specifically given by the normal linear regression model \deqn{yn = Xn\beta + \epsilon,}
-\deqn{\epsilon ~ N(0, \sigma^2 Vn),} where \eqn{\sigma^2} is unknown in this setting. Note that
-Xn must have column dimension \eqn{p}.}
+\item{Xn}{design matrix that characterizes where the data is to be generated
+from. This is specifically given by the normal linear regression model
+\deqn{yn = Xn\beta + \epsilon,} \deqn{\epsilon ~ N(0, \sigma^2 Vn),}
+where \eqn{\sigma^2} is unknown in this setting. Note that
+\code{Xn} must have column dimension \code{p}.}
 
-\item{Vn}{an \eqn{n} by \eqn{n} correlation matrix for the marginal distribution of the sample data \eqn{yn}.
-Takes on an identity matrix when set to NULL.}
+\item{Vn}{an \code{n} by \code{n} correlation matrix for the marginal distribution
+of the sample data \code{yn}. Takes on an identity matrix when set to \code{NULL}.}
 
-\item{Vbeta_d}{correlation matrix that helps describe the prior information on \eqn{\beta} in the design stage}
+\item{Vbeta_d}{correlation matrix that helps describe the prior information
+on \eqn{\beta} in the design stage}
 
-\item{Vbeta_a_inv}{inverse-correlation matrix that helps describe the prior information on \eqn{\beta} in the analysis stage}
+\item{Vbeta_a_inv}{inverse-correlation matrix that helps describe the prior
+information on \eqn{\beta} in the analysis stage}
 
 \item{mu_beta_d}{design stage mean}
 
 \item{mu_beta_a}{analysis stage mean}
 
-\item{a_sig_a, b_sig_a}{shape and scale parameters of the inverse gamma distribution where variance \eqn{\sigma^2}
+\item{a_sig_a, b_sig_a}{shape and scale parameters of the inverse
+gamma distribution where variance \eqn{\sigma^2}
 is sampled from in the analysis stage}
 
-\item{a_sig_d, b_sig_d}{shape and scale parameters of the inverse gamma distribution where variance \eqn{\sigma^2}
-is sampled from in the design stage}
+\item{a_sig_d, b_sig_d}{shape and scale parameters of the inverse gamma
+distribution where variance \eqn{\sigma^2} is sampled from in the design
+stage}
 
-\item{alt}{specifies alternative test case, where alt = "greater" tests if \eqn{u'\beta > C},
-alt = "less" tests if \eqn{u'\beta < C}, and alt = "two.sided" performs a two-sided test. By default,
-alt = "greater".}
+\item{alt}{specifies alternative test case, where \code{alt = "greater"}
+tests if \eqn{u'\beta > C}, \code{alt = "less"} tests if \eqn{u'\beta < C},
+and \code{alt = "two.sided"} performs a two-sided test. By default,
+\code{alt = "greater"}.}
 
 \item{alpha}{significance level}
 
@@ -86,12 +95,15 @@ through Monte Carlo sampling with the added assumption that
 the variance is unknown.
 }
 \examples{
-## O'Hagan and Stevens (2001) include a series of examples with pre-specified parameters that we will
-## be using to replicate their results through our Bayesian assurance simulation.
+
+## O'Hagan and Stevens (2001) include a series of examples with 
+## pre-specified parameters that we will be using to replicate their 
+## results through our Bayesian assurance simulation.
 ## The inputs are as follows:
 \dontrun{
 n <- 285
-p <- 4 # two efficacy parameters for each treatment, two cost parameters for each treatment
+p <- 4 # two efficacy parameters for each treatment, two cost parameters 
+for each treatment
 K <- 20000
 C <- 0
 u <- as.matrix(c(-K, 1, K, -1))
@@ -108,7 +120,8 @@ Vn[(2*n - (n-1)):(2*n), (2*n - (n-1)):(2*n)] <- (tau1 / sig)^2 * diag(n)
 Vn[(3*n - (n-1)):(3*n), (3*n - (n-1)):(3*n)] <- diag(n)
 Vn[(4*n - (n-1)):(4*n), (4*n - (n-1)):(4*n)] <- (tau2 / sig)^2 * diag(n)
 
-Vbeta_d <- (1 / sigsq) * matrix(c(4, 0, 3, 0, 0, 10^7, 0, 0, 3, 0, 4, 0, 0, 0, 0, 10^7),
+Vbeta_d <- (1 / sigsq) * 
+matrix(c(4, 0, 3, 0, 0, 10^7, 0, 0, 3, 0, 4, 0, 0, 0, 0, 10^7),
 nrow = 4, ncol = 4)
 mu_beta_d <- as.matrix(c(5, 6000, 6.5, 7200))
 mu_beta_a <- as.matrix(rep(0, p))
@@ -120,10 +133,13 @@ a_sig_a <- -p / 2
 b_sig_a <- 0
 R <- 150
 
-bayesassurance::bayes_sim_unknownvar(n = n, p = 4, u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 150,
-Xn = NULL, Vn = Vn, Vbeta_d = Vbeta_d, Vbeta_a_inv = Vbeta_a_inv, mu_beta_d = mu_beta_d,
-mu_beta_a = mu_beta_a, a_sig_a = a_sig_a, b_sig_a = b_sig_a, a_sig_d = a_sig_d,
-b_sig_d = b_sig_d, alt = "two.sided", alpha = 0.05, mc_iter = 5000)
+bayesassurance::bayes_sim_unknownvar(n = n, p = 4, 
+u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 150,
+Xn = NULL, Vn = Vn, Vbeta_d = Vbeta_d, 
+Vbeta_a_inv = Vbeta_a_inv, mu_beta_d = mu_beta_d,
+mu_beta_a = mu_beta_a, a_sig_a = a_sig_a, b_sig_a = b_sig_a, 
+a_sig_d = a_sig_d, b_sig_d = b_sig_d, alt = "two.sided", alpha = 0.05, 
+mc_iter = 1000)
 
 }
 }

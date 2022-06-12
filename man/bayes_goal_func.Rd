@@ -10,12 +10,14 @@ bayes_goal_func(n, Xn = NULL, K, pi, sigsq, u, beta_0, beta_1)
 \item{n}{sample size (vector or scalar).}
 
 \item{Xn}{design matrix that characterizing the data. This is
-specifically given by the normal linear regression model \deqn{yn = Xn\beta + \epsilon,}
-\deqn{\epsilon ~ N(0, \sigma^2 I_n),} where \eqn{I_n} is an \eqn{n} by \eqn{n} identity matrix.
+specifically given by the normal linear regression model
+\deqn{yn = Xn\beta + \epsilon,} \deqn{\epsilon ~ N(0, \sigma^2 I_n),}
+where \eqn{I_n} is an \eqn{n} by \eqn{n} identity matrix.
 When set to \code{NULL}, an appropriate \code{Xn} is automatically generated
-\code{bayesassurance::gen_Xn()}. Note that setting \code{Xn = NULL} also enables user to pass in a
-vector of sample sizes to undergo evaluation as the function will
-automatically adjust \code{Xn} accordingly based on the sample size.}
+\code{bayesassurance::gen_Xn()}. Note that setting \code{Xn = NULL}
+also enables user to pass in a vector of sample sizes to undergo
+evaluation as the function will automatically adjust \code{Xn} accordingly
+based on the sample size.}
 
 \item{K}{The amount of utility associated with \eqn{H0} being correctly
 accepted.The null hypothesis is not rejected if the posterior probability
@@ -26,7 +28,8 @@ such that \eqn{P(u'\beta_0) = 1 - P(u'\beta_1) = \pi}.}
 
 \item{sigsq}{variance constant of the linear regression model}
 
-\item{u}{fixed scalar or vector of the same dimension as \eqn{\beta_0} and \eqn{\beta_1}}
+\item{u}{fixed scalar or vector of the same dimension as \eqn{\beta_0} and
+\eqn{\beta_1}}
 
 \item{beta_0}{fixed scalar or vector that null hypothesis is set to}
 
@@ -35,8 +38,10 @@ such that \eqn{P(u'\beta_0) = 1 - P(u'\beta_1) = \pi}.}
 \value{
 a list of objects corresponding to the rate of classifications
 \itemize{
-\item{rc_table:} table of sample size and corresponding correct classification rates
-\item{rc_plot:} plot of correct classification rates for varying sample sizes
+\item{rc_table:} table of sample size and corresponding correct
+classification rates
+\item{rc_plot:} plot of correct classification rates for varying
+sample sizes
 }
 }
 \description{

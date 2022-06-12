@@ -20,25 +20,28 @@ pwr_curve(
 \arguments{
 \item{n}{sample size (either a scalar or vector)}
 
-\item{n_a}{sample size at analysis stage (setting n_a close to 0 corresponds to a weak analysis prior)}
+\item{n_a}{sample size at analysis stage (setting n_a close to 0 corresponds
+to a weak analysis prior)}
 
 \item{n_d}{sample size at design stage}
 
-\item{theta_0}{parameter value that is known a priori (typically provided by the client)}
+\item{theta_0}{parameter value that is known a priori (typically
+provided by the client)}
 
-\item{theta_1}{alternative parameter value that will be tested in comparison to
-theta_0. See alt for specification options.}
+\item{theta_1}{alternative parameter value that will be tested in
+comparison to theta_0. See alt for specification options.}
 
 \item{sigsq}{known variance \eqn{\sigma^2}}
 
-\item{alt}{specifies alternative test case, where alt = "greater" tests if theta_1 > theta_0,
-"less" tests if theta_1 < theta_0, and "two.sided" performs a two-sided test. alt = "greater"
-by default.}
+\item{alt}{specifies alternative test case, where alt = "greater"
+tests if theta_1 > theta_0, "less" tests if theta_1 < theta_0, and
+"two.sided" performs a two-sided test. alt = "greater" by default.}
 
 \item{alpha}{significance level}
 
-\item{bayes_sim}{when set to "TRUE", this indicates that the user wants to include simulated assurance
-results in the outputted plot. Default setting is "FALSE".}
+\item{bayes_sim}{when set to "TRUE", this indicates that the user wants
+to include simulated assurance results in the outputted plot.
+Default setting is "FALSE".}
 
 \item{mc_iter}{number of MC samples provided that bayes_sim = TRUE}
 }
@@ -49,8 +52,8 @@ a list of objects corresponding to the power/assurance curves
 \itemize{
 \item{power:} table of sample sizes and corresponding power values
 obtained from bayesassurance::pwr_freq().
-\item{assurance_table:} table of sample sizes and corresponding assurance
-values obtained from bayesassurance::assurance_nd_na().
+\item{assurance_table:} table of sample sizes and corresponding
+assurance values obtained from bayesassurance::assurance_nd_na().
 \item{bayes_sim_table:} table of sample sizes and corresponding
 assurance values obtained from MC sampling using
 bayesassurance::bayes_sim(). Returned only if bayes_sim = TRUE.
@@ -61,15 +64,17 @@ and evaluated if bayes_sim = TRUE.
 }
 \description{
 Constructs a single plot based on the combined set of inputs used to
-compute the frequentist power and Bayesian assurance. The plot includes three
-curves that include the power curve, the assurance curve obtained under a closed-form solution,
-and optionally, the assurance curve obtained under a simulation setting.
+compute the frequentist power and Bayesian assurance. The plot includes
+three curves that include the power curve, the assurance curve obtained
+under a closed-form solution, and optionally, the assurance curve
+obtained under a simulation setting.
 }
 \examples{
 
 ## Case 1: Weak Analysis Prior (n_a set to be small) + Strong Design Prior
-(n_d set to be large) that results in the Bayesian assurance and frequentist
-curve perfectly overlapping one another.
+## (n_d set to be large) that results in the Bayesian assurance and 
+## frequentist curve perfectly overlapping one another.
+\dontrun{
 n <- seq(10, 200, 10)
 n_a <- 1e-8
 n_d <- 1e+8
@@ -79,16 +84,20 @@ sigsq <- 0.104
 alpha <- 0.05
 
 ## outputs all three plots
-out <- bayesassurance::pwr_curve(n = n, n_a = n_a, n_d = n_d, theta_0 = theta_0,
-theta_1 = theta_1, sigsq = sigsq, alt = "greater", alpha = alpha, bayes_sim = TRUE, mc_iter = 5000)
+out <- bayesassurance::pwr_curve(n = n, n_a = n_a, n_d = n_d, 
+theta_0 = theta_0, theta_1 = theta_1, sigsq = sigsq, alt = "greater", 
+alpha = alpha, bayes_sim = TRUE, mc_iter = 5000)
 
 ## only outputs the closed-form solution power and assurance curves
 pwr_curve(n = n, n_a = n_a, n_d = n_d, theta_0 = theta_0, theta_1 = theta_1,
 sigsq = sigsq, alt = "greater", alpha = alpha, bayes_sim = FALSE)
+}
 
-Case 2: Weak Analysis Prior (n_a set to be small) + Weak Design Prior
-(n_d set to be small) that results in a assurance curve,
-which illustrates the noninformative prior setting.
+
+## Case 2: Weak Analysis Prior (n_a set to be small) + Weak Design Prior
+## (n_d set to be small) that results in a assurance curve,
+## which illustrates the noninformative prior setting.
+\dontrun{
 n <- seq(10, 200, 10)
 n_a <- 1e-8
 n_d <- 1e-8
@@ -98,9 +107,13 @@ sigsq <- 0.104
 alpha <- 0.05
 
 bayesassurance::pwr_curve(n = n, n_a = n_a, n_d = n_d, theta_0 = theta_0,
-theta_1 = theta_1, sigsq = sigsq, alt = "greater", alpha = alpha, bayes_sim = TRUE, mc_iter = 5000)
+theta_1 = theta_1, sigsq = sigsq, alt = "greater", alpha = alpha, 
+bayes_sim = TRUE, mc_iter = 5000)
+}
+
 }
 \seealso{
-\code{\link{ggplot2}}, \code{\link{pwr_freq}} for frequentist power function and
-\code{\link{bayes_sim}} for the Bayesian assurance function
+\code{\link{ggplot2}}, \code{\link{pwr_freq}} for
+frequentist power function and \code{\link{bayes_sim}} for the
+Bayesian assurance function
 }

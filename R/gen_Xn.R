@@ -10,11 +10,11 @@
 #' functions presented in this package.
 #' @seealso \code{\link{gen_Xn_longitudinal}}
 #'
-#' @examples ## Example
-#' In the following example, notice that passing in a vector
-#' of length 4 returns a design matrix of column dimension 4, where
-#' each column is comprised of ones vectors with lengths that correspond
-#' to the inputted sample sizes.
+#' @examples 
+#' ## In the following example, notice that passing in a vector
+#' ## of length 4 returns a design matrix of column dimension 4, where
+#' ## each column is comprised of ones vectors with lengths that correspond
+#' ## to the inputted sample sizes.
 #'
 #' n <- c(1,3,5,8)
 #' gen_Xn(n = n)

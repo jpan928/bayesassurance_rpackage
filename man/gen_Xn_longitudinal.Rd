@@ -16,10 +16,11 @@ each subject}
 \item{to}{end time of repeated measures for each
 subject}
 
-\item{num_repeated_measures}{desired length of the repeated measures sequence.
-Should be a non-negative number, will be rounded up if fractional.}
+\item{num_repeated_measures}{desired length of the repeated measures
+sequence. Should be a non-negative number, will be rounded up if fractional.}
 
-\item{poly_degree}{degree of polynomial in longitudinal model, set to 1 by default.}
+\item{poly_degree}{degree of polynomial in longitudinal model, set to 1 by
+default.}
 }
 \value{
 Xn: a design matrix that can be used to assess the
@@ -33,18 +34,18 @@ Used for power and sample size analysis in the Bayesian setting.
 }
 \examples{
 ## Example 1
-We pass in a vector of subject IDs and specify the start and end
-timepoints along with the desired length of the sequence.
-The resulting design matrix contains vectors of
-ones with lengths that correspond to the number of repeated
-measures for each unique subject.
+## We pass in a vector of subject IDs and specify the start and end
+## timepoints along with the desired length of the sequence.
+## The resulting design matrix contains vectors of
+## ones with lengths that correspond to the number of repeated
+## measures for each unique subject.
 
 ids <- c(1,2,3,4)
 gen_Xn_longitudinal(ids, from = 1, to = 10, num_repeated_measures = 4)
 
 ## Example 2
-If we wish to fit a longitudinal model of a higher degree (e.g. parabolic, cubic),
-we need to adjust the \eqn{poly_degree} variable
+## If we wish to fit a longitudinal model of a higher degree (e.g. 
+## parabolic, cubic), we need to adjust the `poly_degree` variable
 
 # parabolic
 ids <- c(1,2,3,4)

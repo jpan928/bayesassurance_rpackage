@@ -25,13 +25,13 @@ bayes_adcock(
 
 \item{mu_beta_d}{design stage mean}
 
-\item{n_a}{sample size at analysis stage. Also quantifies the amount of prior information we have for
-parameter \eqn{\mu}.}
+\item{n_a}{sample size at analysis stage. Also quantifies the amount of
+prior information we have for parameter \eqn{\mu}.}
 
-\item{n_d}{sample size at design stage. Also quantifies the amount of prior information we have
-for where the data is being generated from.}
+\item{n_d}{sample size at design stage. Also quantifies the amount
+of prior information we have for where the data is being generated from.}
 
-\item{sig_sq}{Known variance \eqn{\sigma^2}.}
+\item{sig_sq}{known variance \eqn{\sigma^2}.}
 
 \item{alpha}{significance level}
 
@@ -44,13 +44,13 @@ approximate Bayesian assurance under precision-based conditions
 Returns the Bayesian assurance of observing that the
 absolute difference between the true underlying
 population parameter and the sample estimate falls within a margin
-of error no greater than a fixed precision level, \eqn{d}.
+of error no greater than a fixed precision level, d.
 }
 \examples{
 n <- seq(20, 145, 5)
 out <- bayes_adcock(n = n, d = 0.20, mu_beta_a = 0.64, mu_beta_d = 0.9,
                       n_a = 20, n_d = 10, sig_sq = 0.265,
-                      alpha = 0.05, mc_iter = 10000)
+                      alpha = 0.05, mc_iter = 1000)
 head(out$assurance_table)
 out$assurance_plot
 }

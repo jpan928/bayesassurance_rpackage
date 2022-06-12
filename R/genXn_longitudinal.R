@@ -9,27 +9,29 @@
 #' each subject
 #' @param to end time of repeated measures for each
 #' subject
-#' @param num_repeated_measures desired length of the repeated measures sequence.
-#' Should be a non-negative number, will be rounded up if fractional.
-#' @param poly_degree degree of polynomial in longitudinal model, set to 1 by default.
+#' @param num_repeated_measures desired length of the repeated measures 
+#' sequence. Should be a non-negative number, will be rounded up if fractional.
+#' @param poly_degree degree of polynomial in longitudinal model, set to 1 by 
+#' default.
 #' @return Xn: a design matrix that can be used to assess the
 #' Bayesian assurance through Monte Carlo sampling using
 #' functions presented in this package.
 #' @seealso \code{\link{gen_Xn}}
 #'
-#' @examples ## Example 1
-#' We pass in a vector of subject IDs and specify the start and end
-#' timepoints along with the desired length of the sequence.
-#' The resulting design matrix contains vectors of
-#' ones with lengths that correspond to the number of repeated
-#' measures for each unique subject.
+#' @examples 
+#' ## Example 1
+#' ## We pass in a vector of subject IDs and specify the start and end
+#' ## timepoints along with the desired length of the sequence.
+#' ## The resulting design matrix contains vectors of
+#' ## ones with lengths that correspond to the number of repeated
+#' ## measures for each unique subject.
 #'
 #' ids <- c(1,2,3,4)
 #' gen_Xn_longitudinal(ids, from = 1, to = 10, num_repeated_measures = 4)
 #'
 #' ## Example 2
-#' If we wish to fit a longitudinal model of a higher degree (e.g. parabolic, cubic),
-#' we need to adjust the \eqn{poly_degree} variable
+#' ## If we wish to fit a longitudinal model of a higher degree (e.g. 
+#' ## parabolic, cubic), we need to adjust the `poly_degree` variable
 #'
 #' # parabolic
 #' ids <- c(1,2,3,4)
@@ -42,7 +44,8 @@
 #' poly_degree = 3)
 #' @export
 #'
-gen_Xn_longitudinal <- function(ids, from, to, num_repeated_measures, poly_degree = 1){
+gen_Xn_longitudinal <- function(ids, from, to, num_repeated_measures, 
+                                poly_degree = 1){
 
   # create dataframe d given inputs
   d1 <- sort(rep(ids, num_repeated_measures))

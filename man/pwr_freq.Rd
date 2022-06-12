@@ -9,15 +9,18 @@ pwr_freq(n, theta_0, theta_1, sigsq, alt, alpha)
 \arguments{
 \item{n}{sample size (either scalar or vector)}
 
-\item{theta_0}{initial value the parameter is set equal to in the null hypothesis, where
-\eqn{H0: \theta = \theta 0}.}
+\item{theta_0}{initial value the parameter is set equal to in the null
+hypothesis, where \eqn{H0: \theta = \theta 0}.}
 
-\item{theta_1}{alternative value to be compared to theta_0. See alt for specification options.}
+\item{theta_1}{alternative value to be compared to theta_0.
+See alt for specification options.}
 
 \item{sigsq}{known variance \eqn{\sigma^2}}
 
-\item{alt}{specifies comparison between theta_1 and theta_0, where alt = "greater" tests if theta_1 > theta_0,
-"less" tests if theta_1 < theta_0, and "two.sided" performs a two-sided test. alt = "greater" by
+\item{alt}{specifies comparison between \eqn{\theta_1} and \eqn{\theta_0},
+where \code{alt = "greater"} tests if \eqn{\theta_1 > \theta_0},
+\code{alt = "less"} tests if \eqn{\theta_1 < \theta_0}, and \code{alt = "two.sided"}
+performs a two-sided test. \code{alt = "greater"} by
 default.}
 
 \item{alpha}{significance level}
@@ -27,15 +30,16 @@ objects corresponding to the power
 \itemize{
 \item{pwr_table:} table of sample sizes and corresponding power
 values.
-\item{pwr_plot:} power curve that is only returned if n is a vector. This power
-curve covers a wider range of sample sizes than the inputted values specified
-for n, where specific power values are marked in red.
+\item{pwr_plot:} power curve that is only returned if n is a vector.
+This power curve covers a wider range of sample sizes than the
+inputted values specified for n, where specific power values are marked
+in red.
 \item{power_val:} single power value that is returned if n is a scalar.
 }
 }
 \description{
-Constructs a simple hypothesis testing framework based on the parameters specified
-and returns the corresponding frequentist power.
+Constructs a simple hypothesis testing framework based on the parameters
+specified and returns the corresponding frequentist power.
 }
 \examples{
 n <- seq(10, 140, 5)
@@ -43,7 +47,7 @@ theta_0 <- 0.15
 theta_1 <- 0.35
 sigsq <- 0.3
 
-pwr_vals <- pwr_freq(n = n, theta_0 = theta_0, theta_1 = theta_1, sigsq = sigsq,
-alt = "greater", alpha = 0.05)
+pwr_vals <- pwr_freq(n = n, theta_0 = theta_0, theta_1 = theta_1, 
+sigsq = sigsq, alt = "greater", alpha = 0.05)
 pwr_vals$pwr_plot
 }
