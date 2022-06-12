@@ -121,8 +121,7 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d,
 
     if(is.null(Xn)){
       if(is.null(p)){
-        stop("Error: Need to specify column dimension of design matrix if design
-           matrix wasn't specified in function call.")
+        stop("Please specify column dimension p since Xn = NULL.")
       }else{
         Xn <- bayesassurance::gen_Xn(n = rep(n, p))
         Xn_t <- t(Xn)
@@ -158,7 +157,6 @@ bayes_sim_unknownvar <- function(n, p = NULL, u, C, R, Xn = NULL, Vn, Vbeta_d,
     # The proportion of datasets that meet the analysis objective
     # is the assurance.
     for(i in 1:R){
-      print(c(n, i))
 
       # Design Stage Begins
       gamma_sq <- 1 / stats::rgamma(n = 1, a_sig_d, b_sig_d)
