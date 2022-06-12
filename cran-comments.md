@@ -12,12 +12,14 @@ For a CRAN submission we recommend that you fix all NOTEs, WARNINGs and ERRORs.
   
   New submission
 
-## The second note appears to be related to a bug/crash in miktex, 
-## can supposedly be ignored
+
 ❯ On windows-x86_64-devel (r-devel)
   checking for detritus in the temp directory ... NOTE
   Found the following files/directories:
     'lastMiKTeXException'
+    
+The second note appears to be related to a bug/crash in mxiktex, can 
+supposedly be ignored.
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
