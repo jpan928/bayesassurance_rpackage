@@ -11,15 +11,17 @@ For a CRAN submission we recommend that you fix all NOTEs, WARNINGs and ERRORs.
   Maintainer: 'Jane Pan <jpan1@ucla.edu>'
   
   New submission
-
+  
+  Possibly misspelled words in DESCRIPTION:
+    Banerjee (15:51)
 
 ❯ On windows-x86_64-devel (r-devel)
   checking for detritus in the temp directory ... NOTE
   Found the following files/directories:
     'lastMiKTeXException'
     
-The second note appears to be related to a bug/crash in mxiktex, can 
-supposedly be ignored.
+The second note appears to be related to a bug/crash in MiKTeX, 
+can supposedly be ignored.
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 

@@ -46,7 +46,7 @@ Alternatively, you can build the package using the tar.gz file.
   2. Open R Studio.
   3. In the R prompt, navigate to where this file is stored using `setwd("your/filepath/here")`. 
   4. Run `install.packages("bayesassurance_0.1.0.tar.gz", repos = NULL, type = "source")`.
-  You may be asked to install [Rtools](https://cran.rstudio.com/bin/windows/Rtools/). 
+  You may be asked to install [Rtools](https://CRAN.R-project.org/bin/windows/Rtools/). 
   5. Load package using `library(bayesassurance)` and start using package normally. 
   
   
