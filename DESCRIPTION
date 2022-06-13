@@ -12,6 +12,8 @@ Description: Computes Bayesian assurance under various
     Bayesian method that assigns two distinct priors to evaluate the 
     probability of observing a positive outcome, which addresses subtle imitations 
     that take place when using the standard single-prior approach. 
+    For more information, please refer to Pan and Banerjee (2021)
+    <https://arxiv.org/abs/2112.03509>.
 License: GPL (>= 2)
 URL: https://github.com/jpan928/bayesassurance_rpackage
 Depends: 
