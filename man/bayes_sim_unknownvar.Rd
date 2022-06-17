@@ -100,10 +100,10 @@ the variance is unknown.
 ## pre-specified parameters that we will be using to replicate their 
 ## results through our Bayesian assurance simulation.
 ## The inputs are as follows:
-\dontrun{
+\donttest{
 n <- 285
-p <- 4 # two efficacy parameters for each treatment, two cost parameters 
-for each treatment
+p <- 4 ## includes two parameter measures (cost and efficacy) for each of 
+       ## the two treatments, for a total of p = 4 parameters. 
 K <- 20000
 C <- 0
 u <- as.matrix(c(-K, 1, K, -1))
@@ -131,16 +131,14 @@ a_sig_d <- (sigsq / epsilon) + 2
 b_sig_d <- sigsq * (a_sig_d - 1)
 a_sig_a <- -p / 2
 b_sig_a <- 0
-R <- 150
 
 bayesassurance::bayes_sim_unknownvar(n = n, p = 4, 
-u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 150,
+u = as.matrix(c(-K, 1, K, -1)), C = 0, R = 40,
 Xn = NULL, Vn = Vn, Vbeta_d = Vbeta_d, 
 Vbeta_a_inv = Vbeta_a_inv, mu_beta_d = mu_beta_d,
 mu_beta_a = mu_beta_a, a_sig_a = a_sig_a, b_sig_a = b_sig_a, 
 a_sig_d = a_sig_d, b_sig_d = b_sig_d, alt = "two.sided", alpha = 0.05, 
-mc_iter = 1000)
-
+mc_iter = 500)
 }
 }
 \seealso{

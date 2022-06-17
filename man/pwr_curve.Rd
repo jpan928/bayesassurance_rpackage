@@ -74,7 +74,7 @@ obtained under a simulation setting.
 ## Case 1: Weak Analysis Prior (n_a set to be small) + Strong Design Prior
 ## (n_d set to be large) that results in the Bayesian assurance and 
 ## frequentist curve perfectly overlapping one another.
-\dontrun{
+\donttest{
 n <- seq(10, 200, 10)
 n_a <- 1e-8
 n_d <- 1e+8
@@ -97,7 +97,6 @@ sigsq = sigsq, alt = "greater", alpha = alpha, bayes_sim = FALSE)
 ## Case 2: Weak Analysis Prior (n_a set to be small) + Weak Design Prior
 ## (n_d set to be small) that results in a assurance curve,
 ## which illustrates the noninformative prior setting.
-\dontrun{
 n <- seq(10, 200, 10)
 n_a <- 1e-8
 n_d <- 1e-8
@@ -108,8 +107,7 @@ alpha <- 0.05
 
 bayesassurance::pwr_curve(n = n, n_a = n_a, n_d = n_d, theta_0 = theta_0,
 theta_1 = theta_1, sigsq = sigsq, alt = "greater", alpha = alpha, 
-bayes_sim = TRUE, mc_iter = 5000)
-}
+bayes_sim = TRUE, mc_iter = 1000)
 
 }
 \seealso{

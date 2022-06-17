@@ -79,8 +79,9 @@
 #' ## design priors are assigned to enable overlap between the frequentist 
 #' ## power and Bayesian assurance.
 #'
-#' \dontrun{
-#'  n <- seq(100, 250, 5)
+#' \donttest{
+#' library(ggplot2)
+#' n <- seq(100, 250, 5)
 #'
 #'  ## Frequentist Power
 #'  power <- bayesassurance::pwr_freq(n, sigsq = 0.265, theta_0 = 0.15,
@@ -89,15 +90,15 @@
 #'  ## Bayesian simulation values with specified values from the n vector
 #'  assurance <- bayesassurance::bayes_sim(n, p = 1, u = 1, C = 0.15, Xn = NULL,
 #'  Vbeta_d = 1e-8, Vbeta_a_inv = 0, Vn = NULL, sigsq = 0.265, mu_beta_d = 0.25,
-#'  mu_beta_a = 0, alt = "greater", alpha = 0.05, mc_iter = 5000)
+#'  mu_beta_a = 0, alt = "greater", alpha = 0.05, mc_iter = 1000)
 #'
 #' ## Visual representation of plots overlayed on top of one another
 #' df1 <- as.data.frame(cbind(n, power = power$pwr_table$Power))
 #' df2 <- as.data.frame(cbind(n, assurance = 
 #' assurance$assurance_table$Assurance))
 #'
-#' plot_curves <- ggplot2::ggplot(df1, alpha = 0.5, aes(x = n, y = power,
-#' color="Frequentist")) + geom_line(lwd=1.2)
+#' plot_curves <- ggplot2::ggplot(df1, alpha = 0.5, ggplot2::aes(x = n, y = power,
+#' color="Frequentist")) + ggplot2::geom_line(lwd=1.2)
 #' plot_curves <- plot_curves + ggplot2::geom_point(data = df2, alpha = 0.5,
 #' aes(x = n, y = assurance, color="Bayesian"),lwd=1.2) +
 #' ggplot2::ggtitle("Bayesian Simulation vs. Frequentist Power Computation")
@@ -108,7 +109,6 @@
 #' ## Longitudinal example where n now denotes the number of repeated measures 
 #' ## per subject and design matrix is determined accordingly.
 #'
-#' \dontrun{
 #' ## subject ids
 #' n <- seq(10, 100, 5)
 #' ids <- c(1,2)
@@ -123,12 +123,11 @@
 #'                       Vbeta_a_inv = Vbeta_a_inv,
 #'                       Vn = NULL, sigsq = 100,
 #'                       mu_beta_d = as.matrix(c(5, 6.5, 62, 84)),
-#'                       mu_beta_a = as.matrix(rep(0, 4)), mc_iter = 5000,
+#'                       mu_beta_a = as.matrix(rep(0, 4)), mc_iter = 1000,
 #'                       alt = "two.sided", alpha = 0.05, 
 #'                       longitudinal = TRUE, ids = ids,
 #'                       from = 10, to = 120)
 #' assur_out$assurance_plot
-#' }
 #' 
 #' @seealso \code{\link{pwr_freq}} for frequentist power function,
 #' \code{\link{assurance_nd_na}} for a closed form assurance function, and

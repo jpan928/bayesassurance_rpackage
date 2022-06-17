@@ -94,7 +94,6 @@ See Argument descriptions for more detail.
 ## Example 1
 ## Sample size vectors are passed in for n1 and n2 to evaluate
 ## assurance. 
-\dontrun{
 n1 <- seq(20, 75, 5)
 n2 <- seq(50, 160, 10)
 
@@ -102,26 +101,25 @@ assur_out <- bayes_sim_unbalanced(n1 = n1, n2 = n2, repeats = 1, u = c(1, -1),
 C = 0, Xn = NULL, Vbeta_d = matrix(c(50, 0, 0, 10),nrow = 2, ncol = 2),
 Vbeta_a_inv = matrix(rep(0, 4), nrow = 2, ncol = 2),
 Vn = NULL, sigsq = 100,  mu_beta_d = c(1.17, 1.25),
-mu_beta_a = c(0, 0), alt = "two.sided", alpha = 0.05, mc_iter = 5000,
+mu_beta_a = c(0, 0), alt = "two.sided", alpha = 0.05, mc_iter = 1000,
 surface_plot = FALSE)
 
 assur_out$assurance_table
-}
 
 
 ## Example 2
 ## We can produce a contour plot that evaluates unique combinations of n1
 ## and n2 simply by setting `surfaceplot = TRUE`.
-
-\dontrun{
+\donttest{
+n1 <- seq(20, 75, 5)
+n2 <- seq(50, 160, 10)
 assur_out <- bayes_sim_unbalanced(n1 = n1, n2 = n2, repeats = 1, 
 u = c(1, -1), C = 0, Xn = NULL, Vbeta_d = matrix(c(50, 0, 0, 10),
 nrow = 2, ncol = 2), Vbeta_a_inv = matrix(rep(0, 4), nrow = 2, ncol = 2),
 Vn = NULL, sigsq = 100,  mu_beta_d = c(1.17, 1.25),
-mu_beta_a = c(0, 0), alt = "two.sided", alpha = 0.05, mc_iter = 5000,
+mu_beta_a = c(0, 0), alt = "two.sided", alpha = 0.05, mc_iter = 1000,
 surface_plot = TRUE)
 
-## Outputs
 assur_out$assurance_table
 assur_out$contourplot
 }

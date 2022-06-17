@@ -15,7 +15,7 @@ bayes_sim_betabin(
   beta_2,
   sig_level,
   alt,
-  mc_iter = 5000
+  mc_iter
 )
 }
 \arguments{
@@ -56,14 +56,12 @@ difference in two independent proportions.
 #########################################################
 # alpha1 = 0.5, beta1 = 0.5, alpha2 = 0.5, beta2 = 0.5 ##
 #########################################################
-\dontrun{
-n <- seq(40, 1000, 10)
+n <- seq(200, 1000, 10)
 assur_vals <- bayesassurance::bayes_sim_betabin(n1 = n, n2 = n, 
 p1 = 0.25, p2 = 0.2, alpha_1 = 0.5, beta_1 = 0.5, alpha_2 = 0.5, 
-beta_2 = 0.5, sig_level = 0.05, alt = "greater")
+beta_2 = 0.5, sig_level = 0.05, alt = "greater", mc_iter = 1000)
 
 assur_vals$assurance_table
 assur_vals$assurance_plot
-}
 
 }
